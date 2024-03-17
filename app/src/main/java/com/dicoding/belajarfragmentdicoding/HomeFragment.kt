@@ -5,42 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import com.dicoding.belajarfragmentdicoding.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment(), View.OnClickListener {
-//method onCreateView() guna untuk mentraformasikan
-    // layout xml ke objek view dengan mthode inflate ()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate method berguna untuk mngubah layout xml ke
-        //bentuk objek grup/widget
-        return inflater.inflate(R.layout.fragment_home, container, false)
+class HomeFragment : Fragment() {
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        // Inflate the layout for this fragment
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
-//setelah method oncreateView terdapat method onViewCreated
-    //di method ini dapat inisialisasi view dan mengatur action nya(Set listener)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val btnCategory:Button = view.findViewById(R.id.btn_category)
-        btnCategory.setOnClickListener(this)
+
+        binding.btnCategory.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_categoryFragment)
+        )
+        binding.btnProfile.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)
+        }
     }
 
-    override fun onClick(v: View?) {
-        if(v?.id == R.id.btn_category) {
-            val categoryFragment = CategoryFragment()
-            val fragmentManager = parentFragmentManager
-            fragmentManager
-                .beginTransaction()
-                .apply {
-                    replace(
-                        R.id.frame_container,
-                        categoryFragment,
-                        CategoryFragment::class.java.simpleName
-                    )
-                    addToBackStack(null)
-                    commit()
-                }
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

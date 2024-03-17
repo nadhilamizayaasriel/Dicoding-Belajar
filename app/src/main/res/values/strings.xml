@@ -6,5 +6,9 @@
     <string name="to_Category">Ini ke kategori</string>
     <string name="this_category">Ini halaman kategori</string>
     <string name="category_lifestyle">Ke fragment lifestyle</string>
-    <string name="to_profile">Mau ke profile\n</string>
+    <string name="to_profile">Mau ke profile</string>
+    <string name="this_profile">Ini activity profile</string>
+    <string name="category_name">Ini nama kategori</string>
+    <string name="category_description">isinya detail konten yang kamu mau</string>
+    <string name="to_home">Balik ke halaman home</string>
 </resources>
